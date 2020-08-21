@@ -1,0 +1,30 @@
+{
+  "deploy": [
+    {
+      "session_token": "ec71772e-9f26-42eb-856a-d77ce42f1c87",
+      "timestamp_start": "2020-08-21 10:11:45.310555",
+      "timestamp_end": "2020-08-21 10:16:14.854738",
+      "duration": "0:04:29.544183"
+    },
+    {
+      "session_token": "cace87bd-c388-47bd-ac33-cbfac5921254",
+      "timestamp_start": "2020-08-21 10:11:47.937736",
+      "timestamp_end": "2020-08-21 10:14:36.227137",
+      "duration": "0:02:48.289401"
+    }
+  ],
+  "undeploy": [
+    {
+      "session_token": "81c86c0a-4514-45d1-9254-fe9ffee29593",
+      "timestamp_start": "2020-08-21 10:16:34.055625",
+      "timestamp_end": "2020-08-21 10:17:15.437476",
+      "duration": "0:00:41.381851"
+    },
+    {
+      "session_token": "2a500424-2a7c-4eba-bc75-6eb5c5bfc66d",
+      "timestamp_start": "2020-08-21 10:16:38.547723",
+      "timestamp_end": "2020-08-21 10:17:15.355691",
+      "duration": "0:00:36.807968"
+    }
+  ]
+}

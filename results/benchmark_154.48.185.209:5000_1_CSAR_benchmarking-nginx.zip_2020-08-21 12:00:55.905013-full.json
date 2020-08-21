@@ -1,0 +1,18 @@
+{
+  "deploy": [
+    {
+      "session_token": "2f6eec10-a0a3-4dd3-80d3-f36971e3ba19",
+      "timestamp_start": "2020-08-21 10:01:12.299149",
+      "timestamp_end": "2020-08-21 10:05:16.220094",
+      "duration": "0:04:03.920945"
+    }
+  ],
+  "undeploy": [
+    {
+      "session_token": "ec73673c-c659-40fa-ab5f-1568c50db11d",
+      "timestamp_start": "2020-08-21 10:05:32.140276",
+      "timestamp_end": "2020-08-21 10:06:13.781099",
+      "duration": "0:00:41.640823"
+    }
+  ]
+}
