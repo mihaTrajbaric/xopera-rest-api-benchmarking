@@ -1,6 +1,4 @@
 import requests
-import urllib3
-import uuid
 import time
 import datetime
 import json
@@ -134,14 +132,14 @@ def file_to_inputs(file_path):
     return open(file_path, 'rb')
 
 
-def benchmark(n: int, url, csar_path, results_path, timeout=30):
+def benchmark(n: int, url, csar_dir, csar_name, results_dir, timeout=30):
     xOpera_client = xOperaRequests(url)
     timestamp_start = datetime.datetime.now()
     print('uploading CSAR...')
-    blueprint_token = xOpera_client.upload_CSAR(csar_path)
+    blueprint_token = xOpera_client.upload_CSAR(f'{csar_dir}/{csar_name}')
 
     print('deploying...')
-    deploy_session_tokens = [xOpera_client.deploy_only(blueprint_token, inputs=f'marker: {i}') for i in range(n)]
+    deploy_session_tokens = [xOpera_client.deploy_only(blueprint_token, inputs=f'marker: xOpera-benchmarking-{i}') for i in range(n)]
 
     print('Monitoring deploys...')
     for i, session_token in enumerate(deploy_session_tokens):
@@ -155,7 +153,7 @@ def benchmark(n: int, url, csar_path, results_path, timeout=30):
                    session_token in deploy_session_tokens]
 
     print('Undeploying...')
-    undeploy_session_tokens = [xOpera_client.undeploy_only(blueprint_token, inputs=f'marker: {i}') for i in range(n)]
+    undeploy_session_tokens = [xOpera_client.undeploy_only(blueprint_token, inputs=f'marker: xOpera-benchmarking-{i}') for i in range(n)]
 
     print('Monitoring undeploys...')
     for i, session_token in enumerate(undeploy_session_tokens):
@@ -192,8 +190,10 @@ def benchmark(n: int, url, csar_path, results_path, timeout=30):
     print(f"Full logs:")
     print(json.dumps(full_logs, indent=2))
 
-    json.dump(summary, open(f'{results_path}/benchmark_{n}_{str(timestamp_start)}-summary.json', 'w'), indent=2)
-    json.dump(full_logs, open(f'{results_path}/benchmark_{n}_{str(timestamp_start)}-full.json', 'w'), indent=2)
+    url_for_name = url.replace('http://','').replace('https://','').replace('/','')
+
+    json.dump(summary, open(f'{results_dir}/benchmark_{url_for_name}_{n}_{csar_name}_{str(timestamp_start)}-summary.json', 'w'), indent=2)
+    json.dump(full_logs, open(f'{results_dir}/benchmark_{url_for_name}_{n}_{csar_name}_{str(timestamp_start)}-full.json', 'w'), indent=2)
 
 
 def test_case(input: str, xOpera_client: xOperaRequests):
@@ -208,19 +208,12 @@ def test_case(input: str, xOpera_client: xOperaRequests):
     }
 
 
+def multithreading_test(n):
+    p = Pool(n)
+    result = p.map(test_case, range(n))
+    print(json.dumps(result, indent=2))
+
+
 if __name__ == '__main__':
-    # url = 'http://localhost:5000'
-    # token = '04ba6cea-d65f-418a-96e3-1fe835a1943d'
-    # blueprint_token = upload_CSAR('blueprints/CSAR-hello_inputs.zip', url=url)
-    # delete_json = delete_CSAR(blueprint_token=token)
-    # response = deploy(blueprint_token=token, inputs_file_path='blueprints/hello_inputs.yaml', url=url)
-    # response = undeploy(blueprint_token=token, inputs_file_path='blueprints/hello_inputs.yaml', url=url)
-    # print(response)
-    # for i in range(3):
-    #    print(json.dumps(test_case(i), indent=2))
-    # pass
-    # n = 5
-    # p = Pool(n)
-    # result = p.map(test_case, range(n))
-    # print(json.dumps(result, indent=2))
-    benchmark(n=1, url='http://localhost:5000', csar_path='blueprints/CSAR-hello_inputs.zip', results_path='results')
+    benchmark(n=1, url='http://154.48.185.209:5000', csar_dir='blueprints', csar_name='CSAR_benchmarking-nginx.zip',
+              results_dir='results', timeout=300)
