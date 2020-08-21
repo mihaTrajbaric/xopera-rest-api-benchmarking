@@ -7,18 +7,93 @@ import json
 from multiprocessing import Pool
 
 
-def monitor(url, session_token, timeout=300):
-    time_start = time.time()
-    resp = None
-    while time.time() - time_start < timeout:
-        resp = requests.get(f"{url}/info/status?token={session_token}")
+class xOperaRequests:
+    def __init__(self, url):
+        self.url = url
 
-        if resp.json()['state'] != 'running':
-            return True, resp
+    def monitor(self, session_token, timeout=300):
+        time_start = time.time()
+        resp = None
+        while time.time() - time_start < timeout:
+            resp = requests.get(f"{self.url}/info/status?token={session_token}")
 
-        time.sleep(3)
+            if resp.json()['state'] != 'running':
+                return True, resp
 
-    return False, resp
+            time.sleep(3)
+
+        return False, resp
+
+    def upload_CSAR(self, CSAR_path):
+        files = {'CSAR': ('CSAR.zip', open(CSAR_path, 'rb'), 'application/zip')}
+        r = requests.post(f'{self.url}/manage', files=files)
+
+        if r.status_code != 200:
+            raise ConnectionError('Could not upload CSAR to xOpera REST API')
+
+        return r.json()['blueprint_token']
+
+    def delete_CSAR(self, blueprint_token):
+        r = requests.delete(f'{self.url}/manage/{blueprint_token}')
+        if r.status_code != 200:
+            raise ConnectionError(f'Could not delete CSAR: {r.text}')
+
+        return True
+
+    def deploy_only(self, blueprint_token, inputs):
+        files = {'inputs_file': ('inputs_file.yaml', inputs, 'application/x-yaml')}
+        r = requests.post(f'{self.url}/deploy/{blueprint_token}', files=files)
+
+        if r.status_code != 202:
+            print(r.text)
+
+        session_token = r.json()['session_token']
+
+        return session_token
+
+    def undeploy_only(self, blueprint_token, inputs):
+        files = {'inputs_file': ('inputs_file.yaml', inputs, 'application/x-yaml')}
+        r = requests.delete(f'{self.url}/deploy/{blueprint_token}', files=files)
+
+        if r.status_code != 202:
+            print(r.text)
+
+        session_token = r.json()['session_token']
+
+        return session_token
+
+    def deploy(self, blueprint_token, inputs: str):
+        files = {'inputs_file': ('inputs_file.yaml', inputs, 'application/x-yaml')}
+        r = requests.post(f'{self.url}/deploy/{blueprint_token}', files=files)
+
+        if r.status_code != 202:
+            print(r.text)
+        # assert r.status_code == 202
+        session_token = r.json()['session_token']
+
+        done, resp_status = self.monitor(session_token=session_token)
+
+        assert done
+
+        resp_log = requests.get(f"{self.url}/info/log/deployment?session_token={session_token}")
+
+        return parse_log(resp_log.json())
+
+    def undeploy(self, blueprint_token, inputs):
+        files = {'inputs_file': ('inputs_file.yaml', inputs, 'application/x-yaml')}
+        r = requests.delete(f'{self.url}/deploy/{blueprint_token}', files=files)
+
+        if r.status_code != 202:
+            print(r.text)
+        session_token = r.json()['session_token']
+
+        done, resp_status = self.monitor(session_token=session_token)
+
+        assert done
+
+        resp_log = requests.get(f"{self.url}/info/log/deployment?session_token={session_token}")
+
+        return parse_log(resp_log.json())
 
 
 def parse_log(log_json: dict):
@@ -59,94 +134,18 @@ def file_to_inputs(file_path):
     return open(file_path, 'rb')
 
 
-def upload_CSAR(CSAR_path, url='http://154.48.185.209:5000/'):
-    files = {'CSAR': ('CSAR.zip', open(CSAR_path, 'rb'), 'application/zip')}
-    r = requests.post(f'{url}/manage', files=files)
-
-    if r.status_code != 200:
-        raise ConnectionError('Could not upload CSAR to xOpera REST API')
-
-    return r.json()['blueprint_token']
-
-
-def delete_CSAR(blueprint_token, url='http://154.48.185.209:5000/'):
-    r = requests.delete(f'{url}/manage/{blueprint_token}')
-    if r.status_code != 200:
-        raise ConnectionError(f'Could not delete CSAR: {r.text}')
-
-    return True
-
-
-def deploy_only(blueprint_token, inputs, url):
-    files = {'inputs_file': ('inputs_file.yaml', inputs, 'application/x-yaml')}
-    r = requests.post(f'{url}/deploy/{blueprint_token}', files=files)
-
-    if r.status_code != 202:
-        print(r.text)
-
-    session_token = r.json()['session_token']
-
-    return session_token
-
-
-def undeploy_only(blueprint_token, inputs, url):
-    files = {'inputs_file': ('inputs_file.yaml', inputs, 'application/x-yaml')}
-    r = requests.delete(f'{url}/deploy/{blueprint_token}', files=files)
-
-    if r.status_code != 202:
-        print(r.text)
-
-    session_token = r.json()['session_token']
-
-    return session_token
-
-
-def deploy(blueprint_token, inputs: str, url='http://154.48.185.209:5000/'):
-    files = {'inputs_file': ('inputs_file.yaml', inputs, 'application/x-yaml')}
-    r = requests.post(f'{url}/deploy/{blueprint_token}', files=files)
-
-    if r.status_code != 202:
-        print(r.text)
-    # assert r.status_code == 202
-    session_token = r.json()['session_token']
-
-    done, resp_status = monitor(url=url, session_token=session_token)
-
-    assert done
-
-    resp_log = requests.get(f"{url}/info/log/deployment?session_token={session_token}")
-
-    return parse_log(resp_log.json())
-
-
-def undeploy(blueprint_token, inputs, url='http://154.48.185.209:5000/'):
-    files = {'inputs_file': ('inputs_file.yaml', inputs, 'application/x-yaml')}
-    r = requests.delete(f'{url}/deploy/{blueprint_token}', files=files)
-
-    if r.status_code != 202:
-        print(r.text)
-    session_token = r.json()['session_token']
-
-    done, resp_status = monitor(url=url, session_token=session_token)
-
-    assert done
-
-    resp_log = requests.get(f"{url}/info/log/deployment?session_token={session_token}")
-
-    return parse_log(resp_log.json())
-
-
 def benchmark(n: int, url, csar_path, results_path, timeout=30):
+    xOpera_client = xOperaRequests(url)
     timestamp_start = datetime.datetime.now()
     print('uploading CSAR...')
-    blueprint_token = upload_CSAR(csar_path, url)
+    blueprint_token = xOpera_client.upload_CSAR(csar_path)
 
     print('deploying...')
-    deploy_session_tokens = [deploy_only(blueprint_token, inputs=f'marker: {i}', url=url) for i in range(n)]
+    deploy_session_tokens = [xOpera_client.deploy_only(blueprint_token, inputs=f'marker: {i}') for i in range(n)]
 
     print('Monitoring deploys...')
     for i, session_token in enumerate(deploy_session_tokens):
-        done, resp_status = monitor(url=url, session_token=session_token, timeout=timeout)
+        done, resp_status = xOpera_client.monitor(session_token=session_token, timeout=timeout)
         print(f'{i+1}. {"Done" if done else "Failed"}')
         if not done:
             print('failed', resp_status.json())
@@ -156,11 +155,11 @@ def benchmark(n: int, url, csar_path, results_path, timeout=30):
                    session_token in deploy_session_tokens]
 
     print('Undeploying...')
-    undeploy_session_tokens = [undeploy_only(blueprint_token, inputs=f'marker: {i}', url=url) for i in range(n)]
+    undeploy_session_tokens = [xOpera_client.undeploy_only(blueprint_token, inputs=f'marker: {i}') for i in range(n)]
 
     print('Monitoring undeploys...')
     for i, session_token in enumerate(undeploy_session_tokens):
-        done, resp_status = monitor(url=url, session_token=session_token, timeout=timeout)
+        done, resp_status = xOpera_client.monitor(session_token=session_token, timeout=timeout)
         print(f'{i + 1}. {"Done" if done else "Failed"}')
         if not done:
             print('failed', resp_status.json())
@@ -197,13 +196,12 @@ def benchmark(n: int, url, csar_path, results_path, timeout=30):
     json.dump(full_logs, open(f'{results_path}/benchmark_{n}_{str(timestamp_start)}-full.json', 'w'), indent=2)
 
 
-def test_case(input):
+def test_case(input: str, xOpera_client: xOperaRequests):
     blueprint_token = '04ba6cea-d65f-418a-96e3-1fe835a1943d'
-    url = 'http://localhost:5000'
 
     inputs = f'marker: {input}'
-    deploy_response = deploy(blueprint_token=blueprint_token, inputs=inputs, url=url)
-    undeploy_response = undeploy(blueprint_token=blueprint_token, inputs=inputs, url=url)
+    deploy_response = xOpera_client.deploy(blueprint_token=blueprint_token, inputs=inputs)
+    undeploy_response = xOpera_client.undeploy(blueprint_token=blueprint_token, inputs=inputs)
     return {
         'deploy': deploy_response,
         'undeploy': undeploy_response
@@ -211,8 +209,8 @@ def test_case(input):
 
 
 if __name__ == '__main__':
-    url = 'http://localhost:5000'
-    token = '04ba6cea-d65f-418a-96e3-1fe835a1943d'
+    # url = 'http://localhost:5000'
+    # token = '04ba6cea-d65f-418a-96e3-1fe835a1943d'
     # blueprint_token = upload_CSAR('blueprints/CSAR-hello_inputs.zip', url=url)
     # delete_json = delete_CSAR(blueprint_token=token)
     # response = deploy(blueprint_token=token, inputs_file_path='blueprints/hello_inputs.yaml', url=url)
@@ -225,4 +223,4 @@ if __name__ == '__main__':
     # p = Pool(n)
     # result = p.map(test_case, range(n))
     # print(json.dumps(result, indent=2))
-    benchmark(n=1, url=url, csar_path='blueprints/CSAR-hello_inputs.zip', results_path='results')
+    benchmark(n=1, url='http://localhost:5000', csar_path='blueprints/CSAR-hello_inputs.zip', results_path='results')
