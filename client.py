@@ -215,5 +215,6 @@ def multithreading_test(n):
 
 
 if __name__ == '__main__':
-    benchmark(n=1, url='http://154.48.185.209:5000', csar_dir='blueprints', csar_name='CSAR_benchmarking-nginx.zip',
-              results_dir='results', timeout=300)
+    for i in range(10):
+        benchmark(n=i, url='http://154.48.185.209:5000', csar_dir='blueprints', csar_name='CSAR_benchmarking-nginx.zip',
+                  results_dir='results', timeout=300)
