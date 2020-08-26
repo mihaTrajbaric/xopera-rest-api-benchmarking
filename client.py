@@ -2,6 +2,7 @@ import requests
 import time
 import datetime
 import json
+import os
 from multiprocessing import Pool
 
 
@@ -38,9 +39,12 @@ class xOperaRequests:
 
         return True
 
-    def deploy_only(self, blueprint_token, inputs):
+    def deploy_only(self, blueprint_token, inputs, version_tag=None):
         files = {'inputs_file': ('inputs_file.yaml', inputs, 'application/x-yaml')}
-        r = requests.post(f'{self.url}/deploy/{blueprint_token}', files=files)
+        url = f'{self.url}/deploy/{blueprint_token}'
+        if version_tag:
+            url = url + f'?version_tag={version_tag}'
+        r = requests.post(url=url, files=files)
 
         if r.status_code != 202:
             print(r.text)
@@ -49,9 +53,12 @@ class xOperaRequests:
 
         return session_token
 
-    def undeploy_only(self, blueprint_token, inputs):
+    def undeploy_only(self, blueprint_token, inputs, version_tag=None):
         files = {'inputs_file': ('inputs_file.yaml', inputs, 'application/x-yaml')}
-        r = requests.delete(f'{self.url}/deploy/{blueprint_token}', files=files)
+        url = f'{self.url}/deploy/{blueprint_token}'
+        if version_tag:
+            url = url + f'?version_tag={version_tag}'
+        r = requests.delete(url=url, files=files)
 
         if r.status_code != 202:
             print(r.text)
@@ -60,9 +67,12 @@ class xOperaRequests:
 
         return session_token
 
-    def deploy(self, blueprint_token, inputs: str):
+    def deploy(self, blueprint_token, inputs: str, version_tag=None):
         files = {'inputs_file': ('inputs_file.yaml', inputs, 'application/x-yaml')}
-        r = requests.post(f'{self.url}/deploy/{blueprint_token}', files=files)
+        url = f'{self.url}/deploy/{blueprint_token}'
+        if version_tag:
+            url = url + f'?version_tag={version_tag}'
+        r = requests.post(url=url, files=files)
 
         if r.status_code != 202:
             print(r.text)
@@ -77,9 +87,12 @@ class xOperaRequests:
 
         return parse_log(resp_log.json())
 
-    def undeploy(self, blueprint_token, inputs):
+    def undeploy(self, blueprint_token, inputs, version_tag=None):
         files = {'inputs_file': ('inputs_file.yaml', inputs, 'application/x-yaml')}
-        r = requests.delete(f'{self.url}/deploy/{blueprint_token}', files=files)
+        url = f'{self.url}/deploy/{blueprint_token}'
+        if version_tag:
+            url = url + f'?version_tag={version_tag}'
+        r = requests.delete(url=url, files=files)
 
         if r.status_code != 202:
             print(r.text)
@@ -154,8 +167,8 @@ def benchmark(n: int, url, csar_dir, csar_name, results_dir, timeout=30):
                    session_token in deploy_session_tokens]
 
     print('Undeploying...')
-    undeploy_session_tokens = [xOpera_client.undeploy_only(blueprint_token, inputs=f'marker: xOpera-benchmarking-{i}')
-                               for i in range(n)]
+    undeploy_session_tokens = [xOpera_client.undeploy_only(blueprint_token, inputs=f'marker: xOpera-benchmarking-{i}',
+                                                           version_tag='v1.1') for i in range(n)]
 
     print('Monitoring undeploys...')
     for i, session_token in enumerate(undeploy_session_tokens):
@@ -194,6 +207,9 @@ def benchmark(n: int, url, csar_dir, csar_name, results_dir, timeout=30):
 
     url_for_name = url.replace('http://', '').replace('https://', '').replace('/', '')
 
+    if not os.path.exists(results_dir):
+        os.makedirs(results_dir)
+
     json.dump(summary,
               open(f'{results_dir}/benchmark_{url_for_name}_{n}_{csar_name}_{str(timestamp_start)}-summary.json', 'w'),
               indent=2)
@@ -221,5 +237,6 @@ def multithreading_test(n):
 
 
 if __name__ == '__main__':
-    benchmark(n=3, url='http://154.48.185.209:5000', csar_dir='blueprints', csar_name='CSAR_benchmarking-nginx.zip',
-              results_dir='results', timeout=300)
+    for i in range(50):
+        benchmark(n=i + 1, url='http://localhost:5000', csar_dir='blueprints', csar_name='CSAR-hello_inputs.zip',
+                  results_dir='results/local', timeout=300)
