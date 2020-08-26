@@ -210,11 +210,13 @@ def benchmark(n: int, url, csar_dir, csar_name, results_dir, timeout=30):
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
 
+    n_string = '{0:03}'.format(n)
+
     json.dump(summary,
-              open(f'{results_dir}/benchmark_{url_for_name}_{n}_{csar_name}_{str(timestamp_start)}-summary.json', 'w'),
+              open(f'{results_dir}/benchmark_{url_for_name}_{n_string}_{csar_name}_{str(timestamp_start)}-summary.json', 'w'),
               indent=2)
     json.dump(full_logs,
-              open(f'{results_dir}/benchmark_{url_for_name}_{n}_{csar_name}_{str(timestamp_start)}-full.json', 'w'),
+              open(f'{results_dir}/benchmark_{url_for_name}_{n_string}_{csar_name}_{str(timestamp_start)}-full.json', 'w'),
               indent=2)
 
 
