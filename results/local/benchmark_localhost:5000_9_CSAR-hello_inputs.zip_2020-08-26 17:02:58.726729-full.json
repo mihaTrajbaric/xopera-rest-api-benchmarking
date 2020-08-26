@@ -1,0 +1,114 @@
+{
+  "deploy": [
+    {
+      "session_token": "61a5e12f-64ef-440a-9b86-d7a590e97ddb",
+      "timestamp_start": "2020-08-26 15:02:58.839638",
+      "timestamp_end": "2020-08-26 15:03:09.900645",
+      "duration": "0:00:11.061007"
+    },
+    {
+      "session_token": "e5d323e8-eb5e-4c77-bc0d-f7c22ff09c42",
+      "timestamp_start": "2020-08-26 15:02:58.875708",
+      "timestamp_end": "2020-08-26 15:03:10.117505",
+      "duration": "0:00:11.241797"
+    },
+    {
+      "session_token": "b734b349-07b1-4233-aacb-025c0d7aa034",
+      "timestamp_start": "2020-08-26 15:02:58.910312",
+      "timestamp_end": "2020-08-26 15:03:10.274881",
+      "duration": "0:00:11.364569"
+    },
+    {
+      "session_token": "f5361050-c938-435f-9c53-de9b13dc95f5",
+      "timestamp_start": "2020-08-26 15:02:58.955972",
+      "timestamp_end": "2020-08-26 15:03:10.380388",
+      "duration": "0:00:11.424416"
+    },
+    {
+      "session_token": "d48f2af2-dd88-465c-b4a8-7eb5edb2d8c5",
+      "timestamp_start": "2020-08-26 15:02:59.001337",
+      "timestamp_end": "2020-08-26 15:03:10.460105",
+      "duration": "0:00:11.458768"
+    },
+    {
+      "session_token": "c97b3a8d-1ebc-4c6e-a3be-3cefc271f1aa",
+      "timestamp_start": "2020-08-26 15:02:59.044961",
+      "timestamp_end": "2020-08-26 15:03:10.709702",
+      "duration": "0:00:11.664741"
+    },
+    {
+      "session_token": "cf53593a-a37c-4f83-9dc0-f33616b31434",
+      "timestamp_start": "2020-08-26 15:02:59.083964",
+      "timestamp_end": "2020-08-26 15:03:10.632127",
+      "duration": "0:00:11.548163"
+    },
+    {
+      "session_token": "597478bd-ca20-4e3a-812e-6724543b6ba2",
+      "timestamp_start": "2020-08-26 15:02:59.130762",
+      "timestamp_end": "2020-08-26 15:03:10.889622",
+      "duration": "0:00:11.758860"
+    },
+    {
+      "session_token": "c54b52da-c0cf-426b-b23a-c0ccf3848564",
+      "timestamp_start": "2020-08-26 15:02:59.250639",
+      "timestamp_end": "2020-08-26 15:03:10.382841",
+      "duration": "0:00:11.132202"
+    }
+  ],
+  "undeploy": [
+    {
+      "session_token": "63246da0-1450-4ac4-a262-dfe0c93629f2",
+      "timestamp_start": "2020-08-26 15:03:11.582337",
+      "timestamp_end": "2020-08-26 15:03:20.706394",
+      "duration": "0:00:09.124057"
+    },
+    {
+      "session_token": "ef3baa5e-6891-4a0d-87e3-14530c87a724",
+      "timestamp_start": "2020-08-26 15:03:11.645149",
+      "timestamp_end": "2020-08-26 15:03:20.510283",
+      "duration": "0:00:08.865134"
+    },
+    {
+      "session_token": "f2899141-8f51-4c33-8e6f-888d58014e2f",
+      "timestamp_start": "2020-08-26 15:03:11.718632",
+      "timestamp_end": "2020-08-26 15:03:21.080077",
+      "duration": "0:00:09.361445"
+    },
+    {
+      "session_token": "b14bddca-5508-4869-bafd-bcb75bb1bf76",
+      "timestamp_start": "2020-08-26 15:03:11.796266",
+      "timestamp_end": "2020-08-26 15:03:20.915446",
+      "duration": "0:00:09.119180"
+    },
+    {
+      "session_token": "dbc0cca7-7373-474d-bbdf-70b513dcc13e",
+      "timestamp_start": "2020-08-26 15:03:11.865017",
+      "timestamp_end": "2020-08-26 15:03:20.950215",
+      "duration": "0:00:09.085198"
+    },
+    {
+      "session_token": "c2c70633-6eaa-4b4d-b59e-7a1061995f1a",
+      "timestamp_start": "2020-08-26 15:03:11.968390",
+      "timestamp_end": "2020-08-26 15:03:21.123322",
+      "duration": "0:00:09.154932"
+    },
+    {
+      "session_token": "d73ae5c6-063e-46cc-a977-03570ff547bc",
+      "timestamp_start": "2020-08-26 15:03:12.093634",
+      "timestamp_end": "2020-08-26 15:03:21.091418",
+      "duration": "0:00:08.997784"
+    },
+    {
+      "session_token": "cd7e3372-e9d1-4059-b5fd-1e29210d6ea0",
+      "timestamp_start": "2020-08-26 15:03:12.225862",
+      "timestamp_end": "2020-08-26 15:03:21.533834",
+      "duration": "0:00:09.307972"
+    },
+    {
+      "session_token": "d844eebc-f06a-484a-a1ac-d224b9060f92",
+      "timestamp_start": "2020-08-26 15:03:12.527624",
+      "timestamp_end": "2020-08-26 15:03:21.621857",
+      "duration": "0:00:09.094233"
+    }
+  ]
+}

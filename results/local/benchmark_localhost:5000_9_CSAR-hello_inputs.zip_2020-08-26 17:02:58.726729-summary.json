@@ -1,0 +1,7 @@
+{
+  "n_of_parallel_deploys": 9,
+  "average_deploy_time": "0:00:11.406058",
+  "average_undeploy_time": "0:00:09.123326",
+  "job_started": "2020-08-26 17:02:58.726729",
+  "job_ended": "2020-08-26 17:03:24.703849"
+}

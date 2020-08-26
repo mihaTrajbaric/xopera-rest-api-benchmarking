@@ -1,0 +1,126 @@
+{
+  "deploy": [
+    {
+      "session_token": "ada71847-aa85-4774-99ca-d585a0695a80",
+      "timestamp_start": "2020-08-26 15:03:24.828350",
+      "timestamp_end": "2020-08-26 15:03:37.176987",
+      "duration": "0:00:12.348637"
+    },
+    {
+      "session_token": "4fca228b-9858-483b-922e-66bece97f399",
+      "timestamp_start": "2020-08-26 15:03:24.862252",
+      "timestamp_end": "2020-08-26 15:03:36.765259",
+      "duration": "0:00:11.903007"
+    },
+    {
+      "session_token": "387ebd7c-f2bc-4862-9fae-91351bb90b05",
+      "timestamp_start": "2020-08-26 15:03:24.899702",
+      "timestamp_end": "2020-08-26 15:03:37.590610",
+      "duration": "0:00:12.690908"
+    },
+    {
+      "session_token": "3014e7cd-55d9-4c0b-82ea-5e4141b66852",
+      "timestamp_start": "2020-08-26 15:03:24.939871",
+      "timestamp_end": "2020-08-26 15:03:37.332328",
+      "duration": "0:00:12.392457"
+    },
+    {
+      "session_token": "b16705c5-7d88-436b-b74b-3a039101d215",
+      "timestamp_start": "2020-08-26 15:03:24.977293",
+      "timestamp_end": "2020-08-26 15:03:37.557852",
+      "duration": "0:00:12.580559"
+    },
+    {
+      "session_token": "282bc812-1788-465d-bae5-ef041a010a48",
+      "timestamp_start": "2020-08-26 15:03:25.014639",
+      "timestamp_end": "2020-08-26 15:03:37.952198",
+      "duration": "0:00:12.937559"
+    },
+    {
+      "session_token": "8f348ae7-c0f1-476a-bccc-b9993ae91b09",
+      "timestamp_start": "2020-08-26 15:03:25.051841",
+      "timestamp_end": "2020-08-26 15:03:37.413642",
+      "duration": "0:00:12.361801"
+    },
+    {
+      "session_token": "a5c7d41a-a174-4a1e-bd04-01bdc74b9c94",
+      "timestamp_start": "2020-08-26 15:03:25.099959",
+      "timestamp_end": "2020-08-26 15:03:37.352962",
+      "duration": "0:00:12.253003"
+    },
+    {
+      "session_token": "161cdf12-bdce-43e1-891c-7cd3212c4496",
+      "timestamp_start": "2020-08-26 15:03:25.180755",
+      "timestamp_end": "2020-08-26 15:03:37.879351",
+      "duration": "0:00:12.698596"
+    },
+    {
+      "session_token": "7f27e5c1-6247-4a8c-99b2-baf77a02e792",
+      "timestamp_start": "2020-08-26 15:03:25.340059",
+      "timestamp_end": "2020-08-26 15:03:38.350254",
+      "duration": "0:00:13.010195"
+    }
+  ],
+  "undeploy": [
+    {
+      "session_token": "463eacea-d929-4325-ac0c-e849fc040572",
+      "timestamp_start": "2020-08-26 15:03:40.717783",
+      "timestamp_end": "2020-08-26 15:03:50.479182",
+      "duration": "0:00:09.761399"
+    },
+    {
+      "session_token": "212f8efa-3103-45e0-b1c2-3956e492d034",
+      "timestamp_start": "2020-08-26 15:03:40.791629",
+      "timestamp_end": "2020-08-26 15:03:50.496229",
+      "duration": "0:00:09.704600"
+    },
+    {
+      "session_token": "b25b64ff-8468-43e1-84ab-b06aa374e0de",
+      "timestamp_start": "2020-08-26 15:03:40.870852",
+      "timestamp_end": "2020-08-26 15:03:50.915202",
+      "duration": "0:00:10.044350"
+    },
+    {
+      "session_token": "61264917-e8be-48e5-b658-e1f10a927452",
+      "timestamp_start": "2020-08-26 15:03:40.938152",
+      "timestamp_end": "2020-08-26 15:03:50.745430",
+      "duration": "0:00:09.807278"
+    },
+    {
+      "session_token": "174d523c-ea3f-40d2-8346-73de116d8578",
+      "timestamp_start": "2020-08-26 15:03:41.018614",
+      "timestamp_end": "2020-08-26 15:03:51.090373",
+      "duration": "0:00:10.071759"
+    },
+    {
+      "session_token": "31309685-dd63-4180-a8e5-bc27566f892e",
+      "timestamp_start": "2020-08-26 15:03:41.104824",
+      "timestamp_end": "2020-08-26 15:03:51.241330",
+      "duration": "0:00:10.136506"
+    },
+    {
+      "session_token": "52249ba2-b64c-4ca8-b94c-cd22b37b4d74",
+      "timestamp_start": "2020-08-26 15:03:41.192977",
+      "timestamp_end": "2020-08-26 15:03:51.296852",
+      "duration": "0:00:10.103875"
+    },
+    {
+      "session_token": "cefbc598-c4af-4ca8-b0a5-dd6853f74b09",
+      "timestamp_start": "2020-08-26 15:03:41.305369",
+      "timestamp_end": "2020-08-26 15:03:51.449250",
+      "duration": "0:00:10.143881"
+    },
+    {
+      "session_token": "a8081fc8-8ab7-4103-871c-18ced676acee",
+      "timestamp_start": "2020-08-26 15:03:41.524877",
+      "timestamp_end": "2020-08-26 15:03:51.647128",
+      "duration": "0:00:10.122251"
+    },
+    {
+      "session_token": "9643078b-8724-4988-80ac-282ee9f82f03",
+      "timestamp_start": "2020-08-26 15:03:41.823421",
+      "timestamp_end": "2020-08-26 15:03:51.837340",
+      "duration": "0:00:10.013919"
+    }
+  ]
+}
