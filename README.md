@@ -9,14 +9,14 @@ benchmark(n=3, url='http://154.48.185.209:5000', csar_dir='blueprints', csar_nam
 
 ## Results dir
 ### File format
-benchmark_[ip]\_[n]\_[csar_name]_[timestamp]_[log_type].json
+benchmark_[ip]\_[n]\_[csar_name]\_[timestamp]\_[log_type].json
 ### Results files
 Each test produces several results files:
-- -full.json
+- _full.json
     - report of every deploy / undeploy job
-- -summary.json
+- _summary.json
     - aggregated summary
-- -system_resources.txt
+- _system-resources.txt
     - stacktrace from xOpera VM
-- -system_resources.csv
+- _system-resources.csv
     - staktrace in csv format. Obtain with `parse_colectl_output.py`
