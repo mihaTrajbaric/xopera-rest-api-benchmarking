@@ -9,7 +9,7 @@ benchmark(n=3, url='http://154.48.185.209:5000', csar_dir='blueprints', csar_nam
 
 ## Results dir
 ### File format
-benchmark_[ip]\_[n]\_[csar_name]_[timestamp]-[log_type]
+benchmark_[ip]\_[n]\_[csar_name]_[timestamp]_[log_type].json
 ### Results files
 Each test produces several results files:
 - -full.json
