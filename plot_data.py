@@ -128,7 +128,7 @@ def average_time_plot(input_dir: Path, output_dir: Path=None):
     plot_timedeltas(undeploy_times, title='Average undeploy times', xlabel='n', ylabel='time (HH:MM:SS)', outdir=output_dir)
 
 
-def n_of_parallel_instances(input_dir: Path, output_dir: Path=None):
+def n_of_parallel_instances_plot(input_dir: Path, output_dir: Path=None):
     files = glob.glob(f"{input_dir}/*_full.json")
     for file in files:
         with open(file, 'r') as json_file:
@@ -162,4 +162,5 @@ def n_of_parallel_instances(input_dir: Path, output_dir: Path=None):
 
 if __name__ == '__main__':
     average_time_plot(input_dir=Path("results/openstack-local"), output_dir=Path('results/openstack-local/plots'))
-    n_of_parallel_instances(input_dir=Path("results/openstack-local"), output_dir=Path('results/openstack-local/plots'))
+    n_of_parallel_instances_plot(input_dir=Path("results/openstack-local"), output_dir=Path('results/openstack-local'
+                                                                                            '/plots')) 

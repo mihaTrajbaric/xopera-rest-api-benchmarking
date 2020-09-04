@@ -213,10 +213,10 @@ def benchmark(n: int, url, csar_dir, csar_name, results_dir, timeout=30):
     n_string = '{0:03}'.format(n)
 
     json.dump(summary,
-              open(f'{results_dir}/benchmark_{url_for_name}_{n_string}_{csar_name}_{str(timestamp_start)}-summary.json', 'w'),
+              open(f'{results_dir}/benchmark_{url_for_name}_{n_string}_{csar_name}_{str(timestamp_start)}_summary.json', 'w'),
               indent=2)
     json.dump(full_logs,
-              open(f'{results_dir}/benchmark_{url_for_name}_{n_string}_{csar_name}_{str(timestamp_start)}-full.json', 'w'),
+              open(f'{results_dir}/benchmark_{url_for_name}_{n_string}_{csar_name}_{str(timestamp_start)}_full.json', 'w'),
               indent=2)
 
 
@@ -240,5 +240,5 @@ def multithreading_test(n):
 
 if __name__ == '__main__':
     for i in range(50):
-        benchmark(n=i + 1, url='http://localhost:5000', csar_dir='blueprints', csar_name='CSAR-hello_inputs.zip',
+        benchmark(n=i + 1, url='http://ip:5000/', csar_dir='blueprints', csar_name='hello-local.zip',
                   results_dir='results/local', timeout=300)
