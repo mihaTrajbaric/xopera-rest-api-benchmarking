@@ -1,5 +1,5 @@
 # xopera-rest-api benchmarking tool
-Client for xopera-rest-api benchmarking
+Client for [xopera-rest-api](https://github.com/SODALITE-EU/xopera-rest-api) benchmarking
 ## Usage
 ### Client
 Client uploads blueprint to REST API, deploys, and undeploys  _n instances.
