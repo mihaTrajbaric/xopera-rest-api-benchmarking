@@ -82,24 +82,16 @@ def plot_timedeltas(y, title: str, xlabel, ylabel, x=None, outdir: Path=None):
     plt.show()
 
 
-def plot_n_vs_timestamp(x, y, title: str, xlabel, ylabel, outdir: Path=None):
-    # zero = datetime.datetime(2018, 1, 1)
-    # time = [zero + t for t in y]
-    # df = pd.DataFrame({'n': x,
-    #                    'Time': time})
+def plot_ints(x, y, title: str, xlabel, ylabel, outdir: Path=None):
+
     fig, ax = plt.subplots()
 
     fig.suptitle(title, fontsize=16)
-
-    # myFmt = DateFormatter("%H:%M:%S")
-    # ax.yaxis.set_major_formatter(myFmt)
 
     ax.plot(x, y)
 
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-
-    # plt.gcf().autofmt_xdate()
 
     if outdir:
         if not outdir.exists():
@@ -156,8 +148,8 @@ def n_of_parallel_instances_plot(input_dir: Path, output_dir: Path=None):
             datetime_end = str_to_timestamp(undeploy_job['timestamp_end'], time_format) + datetime.timedelta(hours=2)
             increment_counters(x_axis, y_axis, datetime_start, datetime_end)
 
-        plot_n_vs_timestamp(x_axis, y_axis, title=f'Parallel jobs for n={summary_data["n_of_parallel_deploys"]}',
-                            xlabel='time (HH:MM:SS)', ylabel='n', outdir=output_dir)
+        plot_ints(x_axis, y_axis, title=f'Parallel jobs for N={summary_data["n_of_parallel_deploys"]}',
+                  xlabel='time (HH:MM:SS)', ylabel='n', outdir=output_dir)
 
 
 if __name__ == '__main__':
