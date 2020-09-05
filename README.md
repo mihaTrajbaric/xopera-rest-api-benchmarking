@@ -9,7 +9,7 @@ benchmark(n=3, url='http://ip:5000', csar_dir='blueprints', csar_name='CSAR_benc
           results_dir='results', timeout=300)
 ```
 
-### Helper files
+### Helper scripts
 #### parse_colectl_output
 This script can transform system resurces stacktrace, obtained with colectl tool `$ collectl -scmd -oT` and transform it to .csv format.
 ```python
@@ -18,7 +18,7 @@ filename = 'benchmark_ip:5000_3_CSAR_benchmarking-nginx.zip_2020-08-21 12:29:44.
 parse_output(filename, directory="results")
 ```
 #### plot_data
-This script can produce som  usefull plots from data, obtained from client and colectl,
+This script can produce some  usefull plots from data, obtained from client and colectl,
 ```python
 from plot_data import average_time_plot, n_of_parallel_instances_plot
 from pathlib import Path
